@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SMS Spam Detector</title>
+<style>
+
+body{
+font-family: Arial;
+text-align:center;
+margin-top:100px;
+}
+
+input{
+width:400px;
+padding:10px;
+font-size:16px;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+margin-top:10px;
+}
+
+#result{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>SMS Spam Classifier</h1>
+
+<input id="message" placeholder="Enter SMS message">
+
+<br>
+
+<button onclick="checkSpam()">Predict</button>
+
+<div id="result"></div>
+
+<script>
+
+async function checkSpam(){
+
+let msg = document.getElementById("message").value;
+console.log(msg)
+let response = await fetch(
+"https://sms-spam-api-w26a.onrender.com/predict?message=" + encodeURIComponent(msg)
+);
+
+let data = await response.json();
+
+document.getElementById("result").innerHTML =
+"Prediction : " + data.prediction;
+
+}
+
+</script>
+
+</body>
+</html>
